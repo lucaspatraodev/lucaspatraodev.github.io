@@ -7,7 +7,7 @@
   <title>Lucas Patrão | Desenvolvedor Full Stack</title>
   <style>
 :root{--bg:#080808;--ink:#f1f0ea;--paper:#e8e3d8;--yellow:#ffd600;--muted:#9a9a92;--line:rgba(241,240,234,.2);--track-x:0px;--page-progress:0%;--page-pad:clamp(22px,3.5vw,64px);--nav-h:88px;--max:100vw}
-*{box-sizing:border-box}html{font-size:16px;-webkit-text-size-adjust:none;text-size-adjust:none;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--yellow) #121212}body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}button,a{font:inherit}a{color:inherit;text-decoration:none}button{color:inherit}::selection{background:var(--yellow);color:#080808}
+*{box-sizing:border-box}html{font-size:16px;-webkit-text-size-adjust:none;text-size-adjust:none;scroll-behavior:auto;scrollbar-width:thin;scrollbar-color:var(--yellow) #121212}body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}button,a{font:inherit}a{color:inherit;text-decoration:none}button{color:inherit}::selection{background:var(--yellow);color:#080808}
 
 /* Navigation */
 .site-nav{position:fixed;z-index:100;top:0;left:0;width:100%;height:var(--nav-h);padding:18px var(--page-pad) 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none}.site-nav>*{pointer-events:auto}.brand-mark{width:62px;height:62px;border:1px solid rgba(255,214,0,.7);border-radius:50%;display:grid;place-items:center;color:var(--yellow);font-size:21px;font-weight:900;letter-spacing:.04em;transition:.25s}.brand-mark:hover{background:var(--yellow);color:#080808;transform:rotate(-6deg)}
@@ -2009,101 +2009,38 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileQuery = window.matchMedia("(max-width: 960px)");
 
 let language = localStorage.getItem("portfolio-language") || "pt";
-let currentScene = 0;
-let currentX = 0;
-let targetX = 0;
-let ticking = false;
-let isPaging = false;
-let wheelGesture = 0;
-let wheelSequenceActive = false;
-let wheelLocked = false;
-let pageTimer;
-let wheelTimer;
-let observer;
-let mobileGesture = null;
-let mobileGestureTimer;
-
-function sceneIndexAtScrollPosition(position = window.scrollY) {
-  const anchor = Math.max(0, position + 2);
-  const index = scenes.findIndex((scene, sceneIndex) => (
-    anchor < scene.offsetTop + scene.offsetHeight || sceneIndex === scenes.length - 1
-  ));
-  return Math.max(0, index);
-}
-
-function cancelMobileGesture() {
-  clearTimeout(mobileGestureTimer);
-  mobileGesture = null;
-}
-
-function beginMobileGesture(input, touchY = null) {
-  if (!mobileQuery.matches) return;
-  clearTimeout(mobileGestureTimer);
-  mobileGesture = {
-    input,
-    originIndex: sceneIndexAtScrollPosition(),
-    startScrollY: window.scrollY,
-    startTouchY: touchY,
-    moved: input === "wheel",
-    inputActive: input === "touch"
-  };
-}
-
-function settleMobileGesture() {
-  clearTimeout(mobileGestureTimer);
-  if (!mobileQuery.matches || !mobileGesture || mobileGesture.inputActive) return;
-
-  const gesture = mobileGesture;
-  const distance = window.scrollY - gesture.startScrollY;
-  const finalIndex = sceneIndexAtScrollPosition();
-  mobileGesture = null;
-
-  if (!gesture.moved || Math.abs(distance) < 18 || finalIndex === gesture.originIndex) return;
-
-  const direction = distance > 0 ? 1 : -1;
-  const allowedIndex = Math.max(0, Math.min(gesture.originIndex + direction, scenes.length - 1));
-  const skippedForward = direction > 0 && finalIndex > allowedIndex;
-  const skippedBackward = direction < 0 && finalIndex < allowedIndex;
-
-  if (skippedForward || skippedBackward) {
-    scenes[allowedIndex].scrollIntoView({
-      behavior: reduceMotion.matches ? "auto" : "smooth",
-      block: "start"
-    });
-  }
-}
-
-function scheduleMobileGestureSettlement(delay = 180) {
-  if (!mobileGesture || mobileGesture.inputActive) return;
-  clearTimeout(mobileGestureTimer);
-  mobileGestureTimer = setTimeout(settleMobileGesture, delay);
-}
-
-function handleTouchStart(event) {
-  const touch = event.touches[0];
-  if (touch) beginMobileGesture("touch", touch.clientY);
-}
-
-function handleTouchMove(event) {
-  if (!mobileGesture || mobileGesture.input !== "touch") return;
-  const touch = event.touches[0];
-  if (touch && Math.abs(touch.clientY - mobileGesture.startTouchY) >= 12) mobileGesture.moved = true;
-}
-
-function handleTouchEnd() {
-  if (!mobileGesture || mobileGesture.input !== "touch") return;
-  mobileGesture.inputActive = false;
-  if (!mobileGesture.moved && Math.abs(window.scrollY - mobileGesture.startScrollY) < 18) {
-    cancelMobileGesture();
-    return;
-  }
-  scheduleMobileGestureSettlement(220);
-}
-
-function trackMobileScroll() {
-  if (!mobileGesture || mobileGesture.inputActive) return;
-  scheduleMobileGestureSettlement();
-}
+const WHEEL_PHASE = Object.freeze({
+  IDLE: "IDLE",
+  TRACKING: "TRACKING_GESTURE",
+  NAVIGATING: "NAVIGATING",
+  WAITING: "WAITING_FOR_MOMENTUM_END"
+});
+const WHEEL_QUIET_MS = 180;
+const MOBILE_QUIET_MS = 160;
+const navigation = {
+  mode: mobileQuery.matches ? "mobile" : "desktop",
+  activeIndex: 0,
+  generation: 0,
+  animationFrame: 0,
+  renderFrame: 0,
+  resizeFrame: 0,
+  historyFrame: 0,
+  programmatic: false,
+  initialized: false,
+  modeController: null,
+  viewportWidth: window.innerWidth,
+  wheel: {
+    phase: WHEEL_PHASE.IDLE,
+    accumulated: 0,
+    direction: 0,
+    lastEventAt: 0,
+    quietTimer: 0,
+    navigationDone: true
+  },
+  mobileGesture: null,
+  mobileQuietTimer: 0,
+  mobileClampActive: false
+};
 
 function applyLanguage() {
   const dictionary = translations[language];
@@ -2125,48 +2062,350 @@ function sceneIndexFromTarget(target) {
   return Math.max(0, scenes.indexOf(section));
 }
 
-function updateActiveNavigation(index) {
-  currentScene = Math.max(0, Math.min(index, scenes.length - 1));
-  const activeId = scenes[currentScene]?.id;
+function clampSectionIndex(index) {
+  return Math.max(0, Math.min(Number(index) || 0, scenes.length - 1));
+}
+
+function sectionHash(index) {
+  return index === 0 ? "#top" : `#${scenes[index].id}`;
+}
+
+function sectionIndexFromHash(hash = window.location.hash) {
+  if (!hash || hash === "#top" || hash === "#intro") return 0;
+  const id = decodeURIComponent(hash.slice(1));
+  const index = scenes.findIndex((scene) => scene.id === id);
+  return index < 0 ? 0 : index;
+}
+
+function syncUrl(index, mode = "replace") {
+  if (mode === "none") return;
+  const hash = sectionHash(index);
+  if (window.location.hash === hash) return;
+  const state = { sectionIndex: index };
+  if (mode === "push") history.pushState(state, "", hash);
+  else history.replaceState(state, "", hash);
+}
+
+function setActiveSection(index, { historyMode = "none" } = {}) {
+  const safeIndex = clampSectionIndex(index);
+  navigation.activeIndex = safeIndex;
+  const activeId = scenes[safeIndex]?.id;
   root.dataset.activeScene = activeId || "";
   navLinks.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${activeId}`));
   pageButtons.forEach((button) => {
     const direction = Number(button.dataset.direction);
-    button.disabled = (direction < 0 && currentScene === 0) || (direction > 0 && currentScene === scenes.length - 1);
+    button.disabled = (direction < 0 && safeIndex === 0) || (direction > 0 && safeIndex === scenes.length - 1);
   });
+  root.style.setProperty("--page-progress", `${(safeIndex / Math.max(1, scenes.length - 1)) * 100}%`);
+  syncUrl(safeIndex, historyMode);
 }
 
 function desktopTravel() { return Math.max(0, track.scrollWidth - window.innerWidth); }
 function stageTravel() { return Math.max(1, stage.offsetHeight - window.innerHeight); }
 function sceneScrollTop(index) { return Math.round((stageTravel() / Math.max(1, scenes.length - 1)) * index); }
+function sectionScrollTop(index) { return navigation.mode === "mobile" ? Math.round(scenes[index].offsetTop) : sceneScrollTop(index); }
 
 function updateStageHeight() {
-  if (mobileQuery.matches) {
+  if (navigation.mode === "mobile") {
     stage.style.removeProperty("height");
-    currentX = targetX = 0;
     root.style.setProperty("--track-x", "0px");
     return;
   }
   stage.style.height = `${window.innerHeight + desktopTravel()}px`;
 }
 
-function render() {
-  ticking = false;
-  if (mobileQuery.matches) return;
+function renderDesktopPosition() {
+  navigation.renderFrame = 0;
+  if (navigation.mode !== "desktop") return;
   const progress = Math.max(0, Math.min(1, window.scrollY / stageTravel()));
-  targetX = -(desktopTravel() * progress);
-  currentX = reduceMotion.matches ? targetX : currentX + (targetX - currentX) * .16;
-  if (Math.abs(targetX - currentX) < .3) currentX = targetX;
-  root.style.setProperty("--track-x", `${currentX}px`);
-  root.style.setProperty("--page-progress", `${progress * 100}%`);
-  updateActiveNavigation(Math.round(progress * (scenes.length - 1)));
-  if (Math.abs(targetX - currentX) > .3) requestFrame();
+  root.style.setProperty("--track-x", `${-(desktopTravel() * progress)}px`);
 }
 
-function requestFrame() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(render);
+function requestDesktopRender() {
+  if (navigation.renderFrame || navigation.mode !== "desktop") return;
+  navigation.renderFrame = requestAnimationFrame(renderDesktopPosition);
+}
+
+function cancelNavigationAnimation() {
+  navigation.generation += 1;
+  if (navigation.animationFrame) cancelAnimationFrame(navigation.animationFrame);
+  navigation.animationFrame = 0;
+  navigation.programmatic = false;
+}
+
+function resetWheelGesture() {
+  const wheel = navigation.wheel;
+  clearTimeout(wheel.quietTimer);
+  wheel.phase = WHEEL_PHASE.IDLE;
+  wheel.accumulated = 0;
+  wheel.direction = 0;
+  wheel.lastEventAt = 0;
+  wheel.navigationDone = true;
+}
+
+function finishWheelGestureIfPossible() {
+  const wheel = navigation.wheel;
+  const quietFor = performance.now() - wheel.lastEventAt;
+  if (quietFor < WHEEL_QUIET_MS) {
+    clearTimeout(wheel.quietTimer);
+    wheel.quietTimer = setTimeout(finishWheelGestureIfPossible, WHEEL_QUIET_MS - quietFor);
+    return;
+  }
+  if (wheel.phase === WHEEL_PHASE.TRACKING || (wheel.phase === WHEEL_PHASE.WAITING && wheel.navigationDone)) {
+    resetWheelGesture();
+  }
+}
+
+function scheduleWheelGestureEnd() {
+  const wheel = navigation.wheel;
+  clearTimeout(wheel.quietTimer);
+  wheel.quietTimer = setTimeout(finishWheelGestureIfPossible, WHEEL_QUIET_MS);
+}
+
+function prepareWheelGuard(source) {
+  if (navigation.mode !== "desktop" || source === "initial" || source === "resize") return;
+  const wheel = navigation.wheel;
+  wheel.accumulated = 0;
+  wheel.direction = 0;
+  wheel.navigationDone = false;
+  wheel.phase = source === "wheel" ? WHEEL_PHASE.NAVIGATING : WHEEL_PHASE.WAITING;
+  if (!wheel.lastEventAt) wheel.lastEventAt = performance.now();
+  scheduleWheelGestureEnd();
+}
+
+function completeNavigation(generation) {
+  if (generation !== navigation.generation) return;
+  navigation.animationFrame = 0;
+  navigation.programmatic = false;
+  if (navigation.mode === "desktop") {
+    const wheel = navigation.wheel;
+    wheel.navigationDone = true;
+    if (wheel.phase === WHEEL_PHASE.NAVIGATING) wheel.phase = WHEEL_PHASE.WAITING;
+    finishWheelGestureIfPossible();
+    renderDesktopPosition();
+  }
+}
+
+function animateWindowScroll(targetTop, generation, duration) {
+  const startTop = window.scrollY;
+  const distance = targetTop - startTop;
+  if (Math.abs(distance) < 1 || duration === 0) {
+    window.scrollTo(0, targetTop);
+    completeNavigation(generation);
+    return;
+  }
+  const startedAt = performance.now();
+  const easeInOutCubic = (value) => value < .5 ? 4 * value ** 3 : 1 - ((-2 * value + 2) ** 3) / 2;
+  const step = (now) => {
+    if (generation !== navigation.generation) return;
+    const progress = Math.min(1, (now - startedAt) / duration);
+    window.scrollTo(0, startTop + distance * easeInOutCubic(progress));
+    if (progress < 1) navigation.animationFrame = requestAnimationFrame(step);
+    else {
+      window.scrollTo(0, targetTop);
+      completeNavigation(generation);
+    }
+  };
+  navigation.animationFrame = requestAnimationFrame(step);
+}
+
+function defaultHistoryMode(source) {
+  if (["wheel", "menu", "link", "button", "keyboard"].includes(source)) return "push";
+  if (["mobile-scroll", "scrollbar"].includes(source)) return "replace";
+  return "none";
+}
+
+function clearMobileGesture() {
+  clearTimeout(navigation.mobileQuietTimer);
+  navigation.mobileGesture = null;
+  navigation.mobileClampActive = false;
+}
+
+function navigateToSection(index, source = "api", options = {}) {
+  const safeIndex = clampSectionIndex(index);
+  const historyMode = options.historyMode ?? defaultHistoryMode(source);
+  const behavior = reduceMotion.matches ? "auto" : (options.behavior || "smooth");
+  closeMenu();
+  clearMobileGesture();
+  cancelNavigationAnimation();
+  const generation = navigation.generation;
+  navigation.programmatic = true;
+  prepareWheelGuard(source);
+  setActiveSection(safeIndex, { historyMode });
+  const targetTop = sectionScrollTop(safeIndex);
+  const duration = behavior === "auto" ? 0 : (navigation.mode === "desktop" ? 620 : 480);
+  animateWindowScroll(targetTop, generation, duration);
+}
+
+function page(direction, source = "button") {
+  navigateToSection(navigation.activeIndex + direction, source);
+}
+
+function normalizeWheelDelta(event) {
+  const multiplier = event.deltaMode === WheelEvent.DOM_DELTA_LINE ? 16 : event.deltaMode === WheelEvent.DOM_DELTA_PAGE ? window.innerHeight : 1;
+  return Math.max(-window.innerHeight, Math.min(window.innerHeight, event.deltaY * multiplier));
+}
+
+function scrollableAncestorCanConsume(target, direction) {
+  let element = target instanceof Element ? target : null;
+  while (element && element !== document.body) {
+    const style = getComputedStyle(element);
+    const scrollable = /(auto|scroll|overlay)/.test(style.overflowY) && element.scrollHeight > element.clientHeight + 1;
+    if (scrollable) {
+      const canMoveDown = direction > 0 && element.scrollTop + element.clientHeight < element.scrollHeight - 1;
+      const canMoveUp = direction < 0 && element.scrollTop > 1;
+      if (canMoveDown || canMoveUp) return true;
+    }
+    element = element.parentElement;
+  }
+  return false;
+}
+
+function shouldYieldDesktopWheel(event, direction) {
+  if (event.defaultPrevented || event.ctrlKey) return true;
+  const target = event.target instanceof Element ? event.target : null;
+  if (target?.closest("input,textarea,select,[contenteditable='true'],[data-native-scroll]")) return true;
+  return scrollableAncestorCanConsume(target, direction);
+}
+
+function handleDesktopWheel(event) {
+  if (navigation.mode !== "desktop") return;
+  const verticalDominant = Math.abs(event.deltaY) >= Math.abs(event.deltaX);
+  if (!verticalDominant) {
+    if (!scrollableAncestorCanConsume(event.target, Math.sign(event.deltaY))) event.preventDefault();
+    return;
+  }
+  const delta = normalizeWheelDelta(event);
+  const direction = Math.sign(delta);
+  if (!direction || shouldYieldDesktopWheel(event, direction)) return;
+  event.preventDefault();
+
+  const wheel = navigation.wheel;
+  wheel.lastEventAt = performance.now();
+  scheduleWheelGestureEnd();
+  if (wheel.phase === WHEEL_PHASE.NAVIGATING || wheel.phase === WHEEL_PHASE.WAITING) return;
+  if (wheel.phase === WHEEL_PHASE.IDLE) {
+    wheel.phase = WHEEL_PHASE.TRACKING;
+    wheel.accumulated = 0;
+    wheel.direction = direction;
+  }
+  if (direction !== wheel.direction) {
+    wheel.direction = direction;
+    wheel.accumulated = 0;
+  }
+  wheel.accumulated += Math.abs(delta);
+  const threshold = Math.max(36, Math.min(64, window.innerHeight * .055));
+  if (wheel.accumulated >= threshold) {
+    wheel.phase = WHEEL_PHASE.NAVIGATING;
+    wheel.navigationDone = false;
+    navigateToSection(navigation.activeIndex + direction, "wheel");
+  }
+}
+
+function sceneIndexAtDocumentPosition(position = window.scrollY + 1) {
+  const anchor = Math.max(0, position);
+  const index = scenes.findIndex((scene, sceneIndex) => anchor < scene.offsetTop + scene.offsetHeight || sceneIndex === scenes.length - 1);
+  return Math.max(0, index);
+}
+
+function dominantMobileSection() {
+  return sceneIndexAtDocumentPosition(window.scrollY + Math.min(window.innerHeight * .38, 320));
+}
+
+function syncMobileActiveSection() {
+  navigation.renderFrame = 0;
+  if (navigation.mode !== "mobile" || navigation.programmatic) return;
+  setActiveSection(dominantMobileSection(), { historyMode: "replace" });
+}
+
+function requestMobileSync() {
+  if (navigation.renderFrame || navigation.mode !== "mobile") return;
+  navigation.renderFrame = requestAnimationFrame(syncMobileActiveSection);
+}
+
+function interruptProgrammaticNavigation() {
+  if (!navigation.programmatic) return;
+  cancelNavigationAnimation();
+  if (navigation.mode === "mobile") setActiveSection(dominantMobileSection(), { historyMode: "replace" });
+}
+
+function beginMobileGesture(input, touchY = null) {
+  if (navigation.mode !== "mobile") return;
+  interruptProgrammaticNavigation();
+  clearMobileGesture();
+  const originIndex = sceneIndexAtDocumentPosition();
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  navigation.mobileGesture = {
+    input,
+    originIndex,
+    startTouchY: touchY,
+    moved: input === "wheel",
+    inputActive: input === "touch",
+    minScroll: originIndex > 0 ? scenes[originIndex - 1].offsetTop : 0,
+    maxScroll: originIndex < scenes.length - 1 ? scenes[originIndex + 1].offsetTop : maxScroll
+  };
+}
+
+function scheduleMobileGestureEnd() {
+  clearTimeout(navigation.mobileQuietTimer);
+  navigation.mobileQuietTimer = setTimeout(() => {
+    const gesture = navigation.mobileGesture;
+    if (gesture && !gesture.inputActive) clearMobileGesture();
+  }, MOBILE_QUIET_MS);
+}
+
+function handleMobileTouchStart(event) {
+  const touch = event.touches[0];
+  if (touch) beginMobileGesture("touch", touch.clientY);
+}
+
+function handleMobileTouchMove(event) {
+  const gesture = navigation.mobileGesture;
+  const touch = event.touches[0];
+  if (!gesture || gesture.input !== "touch" || !touch) return;
+  if (Math.abs(touch.clientY - gesture.startTouchY) >= 10) gesture.moved = true;
+}
+
+function handleMobileTouchEnd() {
+  const gesture = navigation.mobileGesture;
+  if (!gesture || gesture.input !== "touch") return;
+  gesture.inputActive = false;
+  if (!gesture.moved) clearMobileGesture();
+  else scheduleMobileGestureEnd();
+}
+
+function handleMobileWheel() {
+  if (!navigation.mobileGesture || navigation.mobileGesture.input !== "wheel") beginMobileGesture("wheel");
+  scheduleMobileGestureEnd();
+}
+
+function clampMobileGesture() {
+  const gesture = navigation.mobileGesture;
+  if (!gesture || navigation.mobileClampActive || navigation.programmatic) return false;
+  const y = window.scrollY;
+  let target = null;
+  if (y > gesture.maxScroll + 1) target = gesture.maxScroll;
+  if (y < gesture.minScroll - 1) target = gesture.minScroll;
+  if (target === null) return false;
+  navigation.mobileClampActive = true;
+  window.scrollTo(0, target);
+  requestAnimationFrame(() => { navigation.mobileClampActive = false; });
+  return true;
+}
+
+function handleMobileScroll() {
+  if (navigation.mode !== "mobile") return;
+  clampMobileGesture();
+  requestMobileSync();
+  const gesture = navigation.mobileGesture;
+  if (gesture && !gesture.inputActive) scheduleMobileGestureEnd();
+}
+
+function handleMobileScrollEnd() {
+  if (navigation.mode !== "mobile") return;
+  requestMobileSync();
+  const gesture = navigation.mobileGesture;
+  if (gesture && !gesture.inputActive) clearMobileGesture();
 }
 
 function closeMenu() {
@@ -2185,69 +2424,6 @@ function openMenu() {
   menuToggle.setAttribute("aria-label", language === "pt" ? "Fechar navegação" : "Close navigation");
   mobileMenu.setAttribute("aria-hidden", "false");
   document.body.classList.add("menu-open");
-}
-
-function goToScene(index, behavior = "smooth") {
-  const safeIndex = Math.max(0, Math.min(index, scenes.length - 1));
-  const scrollBehavior = reduceMotion.matches ? "auto" : behavior;
-  closeMenu();
-  updateActiveNavigation(safeIndex);
-  history.replaceState(null, "", safeIndex === 0 ? "#top" : `#${scenes[safeIndex].id}`);
-  if (mobileQuery.matches) {
-    cancelMobileGesture();
-    scenes[safeIndex].scrollIntoView({ behavior: scrollBehavior, block: "start" });
-    return;
-  }
-  isPaging = true;
-  window.scrollTo({ top: sceneScrollTop(safeIndex), behavior: scrollBehavior });
-  clearTimeout(pageTimer);
-  pageTimer = setTimeout(() => {
-    window.scrollTo({ top: sceneScrollTop(safeIndex), behavior: "auto" });
-    isPaging = false;
-    wheelGesture = 0;
-    if (!wheelSequenceActive) wheelLocked = false;
-  }, scrollBehavior === "smooth" ? 720 : 20);
-}
-
-function page(direction) { goToScene(currentScene + direction); }
-
-function handleWheel(event) {
-  if (mobileQuery.matches) {
-    if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
-    if (!mobileGesture || mobileGesture.input !== "wheel") beginMobileGesture("wheel");
-    scheduleMobileGestureSettlement();
-    return;
-  }
-  if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
-  event.preventDefault();
-  wheelSequenceActive = true;
-  clearTimeout(wheelTimer);
-  wheelTimer = setTimeout(() => {
-    wheelSequenceActive = false;
-    wheelGesture = 0;
-    if (!isPaging) wheelLocked = false;
-  }, 180);
-  if (isPaging || wheelLocked) return;
-  wheelGesture += event.deltaY;
-  if (Math.abs(wheelGesture) >= 28) {
-    wheelLocked = true;
-    page(wheelGesture > 0 ? 1 : -1);
-  }
-}
-
-function bindMobileObserver() {
-  if (observer) observer.disconnect();
-  if (!mobileQuery.matches) return;
-  observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const index = scenes.indexOf(entry.target);
-        updateActiveNavigation(index);
-        root.style.setProperty("--page-progress", `${(index / (scenes.length - 1)) * 100}%`);
-      }
-    });
-  }, { rootMargin: "-24% 0px -64% 0px", threshold: 0 });
-  scenes.forEach((scene) => observer.observe(scene));
 }
 
 function syncStackAccordion() {
@@ -2360,58 +2536,128 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const href = link.getAttribute("href");
     if (!href || href === "#") return;
     event.preventDefault();
-    goToScene(href === "#top" ? 0 : sceneIndexFromTarget(href));
+    const index = href === "#top" ? 0 : sceneIndexFromTarget(href);
+    navigateToSection(index, link.hasAttribute("data-nav-link") ? "menu" : "link");
   });
 });
 
-pageButtons.forEach((button) => button.addEventListener("click", () => page(Number(button.dataset.direction))));
+pageButtons.forEach((button) => button.addEventListener("click", () => page(Number(button.dataset.direction), "button")));
 
-window.addEventListener("wheel", handleWheel, { passive: false });
-window.addEventListener("scroll", requestFrame, { passive: true });
-window.addEventListener("scroll", trackMobileScroll, { passive: true });
-window.addEventListener("scrollend", settleMobileGesture, { passive: true });
-window.addEventListener("touchstart", handleTouchStart, { passive: true });
-window.addEventListener("touchmove", handleTouchMove, { passive: true });
-window.addEventListener("touchend", handleTouchEnd, { passive: true });
-window.addEventListener("touchcancel", cancelMobileGesture, { passive: true });
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") return closeMenu();
-  if (mobileQuery.matches || ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
-  const nextKeys = ["ArrowDown", "ArrowRight", "PageDown", " "];
-  const previousKeys = ["ArrowUp", "ArrowLeft", "PageUp"];
-  if (nextKeys.includes(event.key)) { event.preventDefault(); page(1); }
-  if (previousKeys.includes(event.key)) { event.preventDefault(); page(-1); }
-  if (event.key === "Home") { event.preventDefault(); goToScene(0); }
-  if (event.key === "End") { event.preventDefault(); goToScene(scenes.length - 1); }
-});
-
-function handleResize() {
-  cancelMobileGesture();
-  closeMenu();
-  updateStageHeight();
-  bindMobileObserver();
-  syncStackAccordion();
-  syncAiAccordion();
-  syncProjectAccordion();
-  if (!mobileQuery.matches) window.scrollTo({ top: sceneScrollTop(currentScene), behavior: "auto" });
-  requestFrame();
+function nearestDesktopSection() {
+  const progress = Math.max(0, Math.min(1, window.scrollY / stageTravel()));
+  return clampSectionIndex(Math.round(progress * (scenes.length - 1)));
 }
 
-window.addEventListener("resize", handleResize);
-mobileQuery.addEventListener("change", handleResize);
-window.addEventListener("load", () => {
+function handleDesktopScroll() {
+  requestDesktopRender();
+  if (!navigation.programmatic && navigation.wheel.phase === WHEEL_PHASE.IDLE) {
+    setActiveSection(nearestDesktopSection(), { historyMode: "replace" });
+  }
+}
+
+function handleDesktopScrollEnd() {
+  if (navigation.mode !== "desktop" || navigation.programmatic || navigation.wheel.phase !== WHEEL_PHASE.IDLE) return;
+  const index = nearestDesktopSection();
+  const target = sceneScrollTop(index);
+  if (Math.abs(window.scrollY - target) <= 1) return;
+  navigateToSection(index, "scrollbar", { historyMode: "replace" });
+}
+
+function installModeListeners() {
+  navigation.modeController?.abort();
+  navigation.modeController = new AbortController();
+  const signal = navigation.modeController.signal;
+  if (navigation.mode === "desktop") {
+    window.addEventListener("wheel", handleDesktopWheel, { passive: false, signal });
+    window.addEventListener("scroll", handleDesktopScroll, { passive: true, signal });
+    window.addEventListener("scrollend", handleDesktopScrollEnd, { passive: true, signal });
+    return;
+  }
+  window.addEventListener("touchstart", handleMobileTouchStart, { passive: true, signal });
+  window.addEventListener("touchmove", handleMobileTouchMove, { passive: true, signal });
+  window.addEventListener("touchend", handleMobileTouchEnd, { passive: true, signal });
+  window.addEventListener("touchcancel", clearMobileGesture, { passive: true, signal });
+  window.addEventListener("wheel", handleMobileWheel, { passive: true, signal });
+  window.addEventListener("scroll", handleMobileScroll, { passive: true, signal });
+  window.addEventListener("scrollend", handleMobileScrollEnd, { passive: true, signal });
+}
+
+function handleKeyboardNavigation(event) {
+  if (event.key === "Escape") return closeMenu();
+  if (navigation.mode !== "desktop" || event.ctrlKey || event.metaKey || event.altKey) return;
+  const focused = document.activeElement instanceof Element ? document.activeElement : null;
+  if (focused?.closest("input,textarea,select,button,a,[contenteditable='true']")) return;
+  const nextKeys = ["ArrowDown", "ArrowRight", "PageDown", " "];
+  const previousKeys = ["ArrowUp", "ArrowLeft", "PageUp"];
+  if (nextKeys.includes(event.key)) { event.preventDefault(); page(1, "keyboard"); }
+  if (previousKeys.includes(event.key)) { event.preventDefault(); page(-1, "keyboard"); }
+  if (event.key === "Home") { event.preventDefault(); navigateToSection(0, "keyboard"); }
+  if (event.key === "End") { event.preventDefault(); navigateToSection(scenes.length - 1, "keyboard"); }
+}
+
+function reconfigureNavigation() {
+  navigation.resizeFrame = 0;
+  const previousMode = navigation.mode;
+  const nextMode = mobileQuery.matches ? "mobile" : "desktop";
+  const modeChanged = previousMode !== nextMode;
+  cancelNavigationAnimation();
+  resetWheelGesture();
+  clearMobileGesture();
+  navigation.mode = nextMode;
+  closeMenu();
   updateStageHeight();
-  const hash = window.location.hash;
-  const initial = hash && hash !== "#top" ? sceneIndexFromTarget(hash) : 0;
-  bindMobileObserver();
   syncStackAccordion();
   syncAiAccordion();
   syncProjectAccordion();
-  goToScene(initial, "auto");
-  requestFrame();
-});
+  if (modeChanged || !navigation.modeController) installModeListeners();
+  setActiveSection(navigation.activeIndex, { historyMode: "none" });
+  window.scrollTo(0, sectionScrollTop(navigation.activeIndex));
+  if (navigation.mode === "desktop") renderDesktopPosition();
+  else requestMobileSync();
+  navigation.viewportWidth = window.innerWidth;
+}
+
+function queueViewportReconfiguration(force = false) {
+  const widthChanged = Math.abs(window.innerWidth - navigation.viewportWidth) > 1;
+  const modeChanged = navigation.mode !== (mobileQuery.matches ? "mobile" : "desktop");
+  if (!force && navigation.mode === "mobile" && !widthChanged && !modeChanged) return;
+  if (navigation.resizeFrame) cancelAnimationFrame(navigation.resizeFrame);
+  navigation.resizeFrame = requestAnimationFrame(reconfigureNavigation);
+}
+
+function queueHistoryNavigation() {
+  if (navigation.historyFrame) return;
+  navigation.historyFrame = requestAnimationFrame(() => {
+    navigation.historyFrame = 0;
+    navigateToSection(sectionIndexFromHash(), "history", { historyMode: "none" });
+  });
+}
+
+function initializeNavigation() {
+  navigation.mode = mobileQuery.matches ? "mobile" : "desktop";
+  updateStageHeight();
+  syncStackAccordion();
+  syncAiAccordion();
+  syncProjectAccordion();
+  const initial = sectionIndexFromHash();
+  setActiveSection(initial, { historyMode: "replace" });
+  window.scrollTo(0, sectionScrollTop(initial));
+  installModeListeners();
+  if (navigation.mode === "desktop") renderDesktopPosition();
+  navigation.viewportWidth = window.innerWidth;
+  navigation.initialized = true;
+}
+
+window.addEventListener("keydown", handleKeyboardNavigation);
+window.addEventListener("resize", () => queueViewportReconfiguration(false), { passive: true });
+window.addEventListener("orientationchange", () => queueViewportReconfiguration(true), { passive: true });
+window.addEventListener("popstate", queueHistoryNavigation);
+window.addEventListener("hashchange", queueHistoryNavigation);
+window.addEventListener("load", () => queueViewportReconfiguration(true), { once: true });
+mobileQuery.addEventListener("change", () => queueViewportReconfiguration(true));
 
 applyLanguage();
+initializeNavigation();
 
   </script>
 </body>
