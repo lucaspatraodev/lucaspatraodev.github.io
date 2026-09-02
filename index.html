@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
   <meta name="description" content="Portfólio de Lucas Patrão, Desenvolvedor Full Stack com foco em Laravel, Vue, React e desenvolvimento assistido por IA.">
   <title>Lucas Patrão | Desenvolvedor Full Stack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23080808' stroke='%23ffd600' stroke-width='3'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial,sans-serif' font-size='25' font-weight='900' fill='%23ffd600'%3ELP%3C/text%3E%3C/svg%3E">
   <style>
 :root{--bg:#080808;--ink:#f1f0ea;--paper:#e8e3d8;--yellow:#ffd600;--muted:#9a9a92;--line:rgba(241,240,234,.2);--track-x:0px;--page-progress:0%;--page-pad:clamp(22px,3.5vw,64px);--nav-h:88px;--max:100vw}
 *{box-sizing:border-box}html{font-size:16px;-webkit-text-size-adjust:none;text-size-adjust:none;scroll-behavior:auto;scrollbar-width:thin;scrollbar-color:var(--yellow) #121212}body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}button,a{font:inherit}a{color:inherit;text-decoration:none}button{color:inherit}::selection{background:var(--yellow);color:#080808}
@@ -21,7 +22,7 @@
 /* Cover */
 .hero-scene{background:#060606}.hero-scene:before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 48% 38%,rgba(255,255,255,.12),transparent 30%),radial-gradient(circle at 50% 55%,#1c1c1b 0,#0c0c0c 46%,#050505 78%)}.hero-media{position:absolute;inset:0;z-index:1;pointer-events:none}.hero-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(0,0,0,.75) 0,transparent 27%,transparent 71%,rgba(0,0,0,.52) 100%),linear-gradient(0deg,rgba(0,0,0,.98) 0,rgba(0,0,0,.08) 36%,transparent 58%,rgba(0,0,0,.1) 100%);pointer-events:none}
 .hero-identity{position:absolute;z-index:4;left:50%;top:60%;width:min(460px,35vw);text-align:center;transform:translateX(-50%);text-shadow:0 2px 16px rgba(0,0,0,.95)}.hero-name{margin:0 0 6px;font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:clamp(16px,1.45vw,24px);letter-spacing:.13em}.hero-summary{max-width:410px;margin:0 auto;color:rgba(255,255,255,.86);font-size:clamp(14px,1.1vw,18px);line-height:1.35}.hero-scene h1{position:absolute;z-index:4;left:50%;bottom:-1.1vh;margin:0;white-space:nowrap;color:var(--yellow);font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:clamp(74px,11.9vw,210px);font-weight:900;line-height:.75;letter-spacing:-.03em;text-transform:uppercase;transform:translateX(-50%);text-shadow:0 8px 35px rgba(0,0,0,.7)}
-.scroll-cue{position:absolute;z-index:5;left:var(--page-pad);top:44%;width:106px;height:106px;border:1px solid rgba(255,255,255,.45);border-radius:50%;display:grid;place-content:center;gap:5px;text-align:center;color:var(--yellow);font-size:12px;font-weight:800;transition:.25s}.scroll-cue strong{color:#fff;font-size:23px;font-weight:400}.scroll-cue:hover{border-color:var(--yellow);transform:translateY(6px)}.hero-socials{position:absolute;z-index:5;left:var(--page-pad);bottom:30px;display:flex;gap:22px}.hero-socials a{display:grid;justify-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.8)}.hero-socials span{width:48px;height:48px;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:900}.hero-socials a:hover span{border-color:var(--yellow);color:var(--yellow)}
+.scroll-cue{position:absolute;z-index:5;left:var(--page-pad);top:44%;width:106px;height:106px;border:1px solid rgba(255,255,255,.45);border-radius:50%;display:grid;place-content:center;gap:5px;text-align:center;color:var(--yellow);font-size:12px;font-weight:800;transition:.25s}.scroll-cue strong{color:#fff;font-size:23px;font-weight:400}.scroll-cue:hover{border-color:var(--yellow);transform:translateY(6px)}.hero-socials{position:absolute;z-index:5;left:var(--page-pad);bottom:30px;display:flex;gap:22px}.hero-socials a{display:grid;justify-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.8)}.hero-socials span{width:48px;height:48px;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:900}.hero-socials small{font:inherit}.hero-socials a:hover span{border-color:var(--yellow);color:var(--yellow)}
 
 /* Story */
 .story-scene{background:var(--paper);color:#111}
@@ -30,7 +31,7 @@
 .page-nav{position:fixed;z-index:80;right:var(--page-pad);bottom:28px;display:flex;align-items:center;gap:14px;mix-blend-mode:difference}.page-nav button{width:52px;height:52px;padding:0;border:1px solid rgba(255,255,255,.48);border-radius:50%;background:rgba(0,0,0,.16);display:grid;place-items:center;color:#fff;font-size:19px;cursor:pointer;transition:.2s}.page-nav button:hover{border-color:#fff;transform:scale(1.06)}.page-nav span{width:68px;height:1px;background:rgba(255,255,255,.35)}.page-nav i{display:block;width:var(--page-progress);height:100%;background:#fff}
 
 @media(max-width:960px){
- :root{--nav-h:76px;--page-pad:clamp(18px,5vw,34px)}html{scroll-snap-type:y mandatory;scroll-padding-block-start:0}.site-nav{height:var(--nav-h);padding-top:14px;grid-template-columns:1fr auto;align-items:start}.brand-mark{width:52px;height:52px;font-size:17px}.desktop-nav,.contact-pill{display:none}.nav-actions{gap:8px}.language-toggle{width:46px;height:46px}.menu-toggle{position:relative;width:52px;height:52px;padding:0;border-radius:50%;display:block;cursor:pointer}.menu-toggle span{position:absolute;left:14px;width:22px;height:1.5px;background:#fff;transition:.28s}.menu-toggle span:first-child{top:21px}.menu-toggle span:last-child{top:29px}.menu-toggle.is-open span:first-child{top:25px;transform:rotate(45deg)}.menu-toggle.is-open span:last-child{top:25px;transform:rotate(-45deg)}
+ :root{--nav-h:76px;--page-pad:clamp(18px,5vw,34px)}html{scroll-snap-type:y proximity;scroll-padding-block-start:0}.site-nav{height:var(--nav-h);padding-top:14px;grid-template-columns:1fr auto;align-items:start}.brand-mark{width:52px;height:52px;font-size:17px}.desktop-nav,.contact-pill{display:none}.nav-actions{gap:8px}.language-toggle{width:46px;height:46px}.menu-toggle{position:relative;width:52px;height:52px;padding:0;border-radius:50%;display:block;cursor:pointer}.menu-toggle span{position:absolute;left:14px;width:22px;height:1.5px;background:#fff;transition:.28s}.menu-toggle span:first-child{top:21px}.menu-toggle span:last-child{top:29px}.menu-toggle.is-open span:first-child{top:25px;transform:rotate(45deg)}.menu-toggle.is-open span:last-child{top:25px;transform:rotate(-45deg)}
  .mobile-menu{display:block;position:fixed;z-index:90;inset:0;opacity:0;visibility:hidden;pointer-events:none;background:rgba(0,0,0,.46);backdrop-filter:blur(9px) grayscale(.7);transition:opacity .28s,visibility .28s}.mobile-menu.is-open{opacity:1;visibility:visible;pointer-events:auto}.mobile-menu-card{position:absolute;top:calc(var(--nav-h) + 8px);left:var(--page-pad);right:var(--page-pad);padding:9px 18px;border:1px solid rgba(255,255,255,.16);border-radius:19px;background:rgba(8,8,8,.93);box-shadow:0 22px 60px rgba(0,0,0,.45);display:flex;flex-direction:column;transform:translateY(-12px) scale(.98);transform-origin:top;transition:transform .3s}.mobile-menu.is-open .mobile-menu-card{transform:none}.mobile-menu-card a{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.82);font-size:14px;font-weight:700}.mobile-menu-card a:last-child{border:0}.mobile-menu-card a.is-active{color:var(--yellow)}
  .motion-stage{height:auto!important}.kinetic-track{position:relative;top:auto;width:100%;height:auto;display:block;transform:none!important}.scene{width:100%;height:auto;min-height:100svh;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always}.scene-shell{width:calc(100% - (var(--page-pad) * 2));height:auto;min-height:100svh;padding:calc(var(--nav-h) + 48px) 0 70px}.page-nav{display:none}
  .hero-scene{height:100svh;min-height:650px}.hero-shade{background:linear-gradient(0deg,rgba(0,0,0,1) 0,rgba(0,0,0,.27) 42%,transparent 65%),linear-gradient(90deg,rgba(0,0,0,.23),transparent 50%,rgba(0,0,0,.2))}.hero-identity{top:auto;bottom:25.5%;width:calc(100% - 40px)}.hero-name{font-size:16px}.hero-summary{max-width:330px;font-size:14px}.hero-scene h1{bottom:11.5%;font-size:clamp(55px,16.7vw,112px);line-height:.82}.scroll-cue{left:auto;right:var(--page-pad);top:auto;bottom:20px;width:75px;height:75px;font-size:9px}.scroll-cue strong{font-size:18px}.hero-socials{left:var(--page-pad);bottom:20px;gap:14px}.hero-socials span{width:40px;height:40px;font-size:10px}.hero-socials a{font-size:9px}
@@ -477,21 +478,28 @@
   height:clamp(48px,4vw,66px);
   object-fit:contain;
 }
-.stack-list{min-width:0;border-top:1px solid rgba(255,255,255,.18)}
+.stack-list{
+  min-width:0;
+  border-top:1px solid rgba(255,255,255,.18);
+}
 .stack-row{
-  --stack-text-offset:clamp(126px,10vw,150px);
+  --stack-number-column:48px;
+  --stack-icon-column:64px;
+  --stack-chevron-column:18px;
+  --stack-column-gap:clamp(16px,1.45vw,24px);
+  --stack-text-offset:calc(var(--stack-number-column) + var(--stack-icon-column) + var(--stack-column-gap) + var(--stack-column-gap));
   min-width:0;
   border-bottom:1px solid rgba(255,255,255,.16);
 }
 .stack-row-trigger{
   width:100%;
   display:grid;
-  grid-template-columns:46px 68px minmax(0,1fr) 18px;
+  grid-template-columns:var(--stack-number-column) var(--stack-icon-column) minmax(0,1fr) var(--stack-chevron-column);
   grid-template-areas:"number icon title chevron";
-  gap:clamp(15px,1.5vw,24px);
+  column-gap:var(--stack-column-gap);
   align-items:center;
   margin:0;
-  padding:clamp(19px,2.6vh,28px) 0 8px;
+  padding:clamp(18px,2.35vh,25px) 0 9px;
   border:0;
   background:none;
   color:inherit;
@@ -500,28 +508,42 @@
 }
 .stack-row-number{
   grid-area:number;
+  justify-self:start;
   color:var(--yellow);
   font-size:16px;
   font-weight:800;
+  font-variant-numeric:tabular-nums;
+  line-height:1;
 }
 .stack-row-icon{
   grid-area:icon;
-  width:60px;
-  height:60px;
-  border:1px solid rgba(255,255,255,.2);
+  justify-self:center;
+  width:58px;
+  height:58px;
+  border:1px solid rgba(255,214,0,.42);
   border-radius:50%;
   display:grid;
   place-items:center;
   color:var(--yellow);
+  background:radial-gradient(circle at 35% 28%,rgba(255,214,0,.12),rgba(255,214,0,.025) 58%,transparent 72%);
+  box-shadow:inset 0 0 0 5px rgba(255,255,255,.012);
+  transition:border-color .25s ease,background-color .25s ease,transform .25s ease;
 }
 .stack-row-icon svg{
-  width:30px;
-  height:30px;
+  width:28px;
+  height:28px;
   fill:none;
   stroke:currentColor;
-  stroke-width:1.6;
+  stroke-width:1.75;
   stroke-linecap:round;
   stroke-linejoin:round;
+}
+@media(hover:hover){
+  .stack-row:hover .stack-row-icon{
+    border-color:var(--yellow);
+    background-color:rgba(255,214,0,.06);
+    transform:translateY(-1px);
+  }
 }
 .stack-row-title{
   grid-area:title;
@@ -544,7 +566,7 @@
   margin:0;
   color:rgba(255,255,255,.62);
   font-size:clamp(14px,1.03vw,17px);
-  line-height:1.6;
+  line-height:1.55;
 }
 
 @media(min-width:961px) and (max-height:850px){
@@ -584,16 +606,22 @@
   .stack-featured img{width:clamp(48px,10vw,62px);height:clamp(48px,10vw,62px)}
   .stack-featured li{font-size:13px}
   .stack-list{margin-top:38px}
-  .stack-row{--stack-text-offset:98px}
+  .stack-row{
+    --stack-icon-column:50px;
+    --stack-number-column:28px;
+    --stack-chevron-column:18px;
+    --stack-column-gap:10px;
+    --stack-text-offset:calc(var(--stack-icon-column) + var(--stack-number-column) + var(--stack-column-gap) + var(--stack-column-gap));
+  }
   .stack-row-trigger{
-    grid-template-columns:50px 28px minmax(0,1fr) 18px;
+    grid-template-columns:var(--stack-icon-column) var(--stack-number-column) minmax(0,1fr) var(--stack-chevron-column);
     grid-template-areas:"icon number title chevron";
-    gap:10px;
+    column-gap:var(--stack-column-gap);
     padding:14px 0;
     cursor:pointer;
   }
   .stack-row-trigger:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:4px}
-  .stack-row-number{font-size:13px}
+  .stack-row-number{justify-self:start;font-size:13px}
   .stack-row-icon{width:48px;height:48px}
   .stack-row-icon svg{width:24px;height:24px}
   .stack-row-title{font-size:clamp(17px,3vw,21px);letter-spacing:-.02em}
@@ -631,8 +659,12 @@
 }
 
 @media(max-width:380px){
-  .stack-row{--stack-text-offset:88px}
-  .stack-row-trigger{grid-template-columns:44px 24px minmax(0,1fr) 16px;gap:8px}
+  .stack-row{
+    --stack-icon-column:44px;
+    --stack-number-column:24px;
+    --stack-chevron-column:16px;
+    --stack-column-gap:8px;
+  }
   .stack-row-icon{width:42px;height:42px}
   .stack-row-icon svg{width:22px;height:22px}
   .stack-row-title{font-size:16px}
@@ -643,15 +675,16 @@
 .ai-scene{
   background:var(--yellow);
   color:#090909;
+  border:0;
+  outline:0;
+  box-shadow:none;
 }
 .ai-scene::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  inset:14px;
-  border:1px solid rgba(0,0,0,.68);
-  border-radius:18px;
-  pointer-events:none;
+  content:none!important;
+  display:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
 }
 html[data-active-scene="ai"] .brand-mark{border-color:rgba(9,9,9,.65);color:#090909}
 html[data-active-scene="ai"] .brand-mark:hover{background:#090909;color:var(--yellow)}
@@ -806,7 +839,6 @@ html[data-active-scene="ai"] .brand-mark:hover{background:#090909;color:var(--ye
   html[data-active-scene="ai"] .menu-toggle{border-color:rgba(9,9,9,.55);background:rgba(255,214,0,.52)}
   html[data-active-scene="ai"] .menu-toggle span{background:#090909}
   .ai-scene{overflow:hidden}
-  .ai-scene::before{inset:6px;border-color:rgba(0,0,0,.48);border-radius:14px}
   .ai-layout{
     display:block;
     width:calc(100% - (var(--page-pad) * 2));
@@ -1209,15 +1241,6 @@ html[data-active-scene="ai"] .brand-mark:hover{background:#090909;color:var(--ye
   background:var(--paper);
   color:#0a0a09;
 }
-.contact-scene::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  inset:14px;
-  border:1px solid rgba(10,10,9,.28);
-  border-radius:18px;
-  pointer-events:none;
-}
 html[data-active-scene="contact"] .brand-mark{
   border-color:rgba(10,10,9,.42);
   color:#0a0a09;
@@ -1390,7 +1413,6 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
 }
 
 @media(max-width:960px){
-  .contact-scene::before{inset:6px;border-radius:14px}
   html[data-active-scene="contact"] .menu-toggle{
     border-color:rgba(10,10,9,.45);
     background:rgba(232,227,216,.72);
@@ -1472,6 +1494,10 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
   .contact-layout,
   .scene-heading{min-width:0;max-width:100%}
   .scene-heading h2,.contact-layout h2{max-width:100%}
+  .stack-row-trigger,.ai-step-trigger,.project-card-trigger,.project-link,.contact-link{
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
   .hero-scene{height:100svh;min-height:100svh}
   .hero-copy-stack{
     left:0;
@@ -1576,6 +1602,10 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
           <a href="https://github.com/lucaspatraodev" target="_blank" rel="noreferrer">
             <span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7A11.3 11.3 0 0 0 8.43 22.72c.57.1.78-.25.78-.55v-2.16c-3.17.69-3.84-1.35-3.84-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.53-.29-5.19-1.27-5.19-5.59 0-1.24.44-2.25 1.18-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.11 1.16A10.8 10.8 0 0 1 12 6.04c.96 0 1.92.13 2.82.38 2.16-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.33-2.67 5.3-5.21 5.58.41.36.77 1.05.77 2.12v3.17c0 .3.21.66.79.55A11.3 11.3 0 0 0 12 .7Z"/></svg></span>
             GitHub
+          </a>
+          <a href="#" data-cv-download download="lucas-de-castro-patrao-cv.html">
+            <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <small data-i18n="cvDownload">Baixar CV</small>
           </a>
           <a href="https://linkedin.com/in/lucas-patrao/" target="_blank" rel="noreferrer">
             <span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5.2 7.7H1.6V22h3.6V7.7ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2Zm10 5.7H9.9V22h3.6v-7.1c0-1.88.35-3.7 2.69-3.7 2.3 0 2.33 2.15 2.33 3.82V22h3.6v-7.88c0-3.87-.83-6.85-5.35-6.85-2.17 0-3.62 1.19-4.21 2.31h-.05V7.7Z"/></svg></span>
@@ -1757,15 +1787,15 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
           <header class="scene-heading scene-heading--ai ai-intro">
             <div class="ai-kicker">
               <span>03</span>
-              <p data-i18n="aiKicker">USO CONSCIENTE</p>
+              <p data-i18n="aiKicker">USO CONSCIENTE DE LLMs</p>
             </div>
-            <h2 id="ai-title">IA</h2>
-            <h3 data-i18n="aiTitle">Uso IA para pensar melhor, sem deixar que ela pense por mim.</h3>
+            <h2 id="ai-title">LLM</h2>
+            <h3 data-i18n="aiTitle">Uso LLMs para ampliar meu raciocínio, sem terceirizar decisões de engenharia.</h3>
             <span class="ai-title-rule" aria-hidden="true"></span>
-            <p data-i18n="aiText">Uso o Codex para fornecer contexto, especificar o problema, delegar tarefas operacionais e manter comigo as decisões de engenharia e a revisão técnica.</p>
+            <p data-i18n="aiText">Uso LLMs como ferramenta de apoio: forneço contexto, delimito o problema e delego tarefas bem definidas. Arquitetura, decisões técnicas e validação continuam comigo.</p>
           </header>
 
-          <ol class="ai-flow" aria-label="Processo de uso consciente de IA">
+          <ol class="ai-flow" aria-label="Processo de uso consciente de LLMs">
             <li class="ai-step">
               <button class="ai-step-trigger" type="button" aria-expanded="true" aria-controls="ai-panel-understand">
                 <span class="ai-step-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="14" cy="14" r="8"/><path d="m20 20 7 7"/></svg></span>
@@ -1773,7 +1803,7 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
                 <span class="ai-step-title" data-i18n="flow1">Entender o problema</span>
                 <span class="ai-step-chevron" aria-hidden="true"></span>
               </button>
-              <div class="ai-step-panel" id="ai-panel-understand"><div><p data-i18n="flow1Text">Analiso o contexto, objetivos e restrições para compreender o que realmente precisa ser resolvido.</p></div></div>
+              <div class="ai-step-panel" id="ai-panel-understand"><div><p data-i18n="flow1Text">Mapeio contexto, objetivo, restrições e impacto antes de pensar na implementação.</p></div></div>
             </li>
             <li class="ai-step">
               <button class="ai-step-trigger" type="button" aria-expanded="false" aria-controls="ai-panel-context">
@@ -1782,7 +1812,7 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
                 <span class="ai-step-title" data-i18n="flow2">Construir contexto</span>
                 <span class="ai-step-chevron" aria-hidden="true"></span>
               </button>
-              <div class="ai-step-panel" id="ai-panel-context"><div><p data-i18n="flow2Text">Reúno informações relevantes, referências e decisões anteriores para criar base sólida para a solução.</p></div></div>
+              <div class="ai-step-panel" id="ai-panel-context"><div><p data-i18n="flow2Text">Reúno código, regras de negócio, referências e decisões existentes para reduzir suposições.</p></div></div>
             </li>
             <li class="ai-step">
               <button class="ai-step-trigger" type="button" aria-expanded="false" aria-controls="ai-panel-specify">
@@ -1791,25 +1821,25 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
                 <span class="ai-step-title" data-i18n="flow3">Especificar a tarefa</span>
                 <span class="ai-step-chevron" aria-hidden="true"></span>
               </button>
-              <div class="ai-step-panel" id="ai-panel-specify"><div><p data-i18n="flow3Text">Defino claramente o que precisa ser feito, critérios de aceite e formato esperado da entrega.</p></div></div>
+              <div class="ai-step-panel" id="ai-panel-specify"><div><p data-i18n="flow3Text">Defino escopo, critérios de aceite, limites e resultado esperado antes de delegar.</p></div></div>
             </li>
             <li class="ai-step">
               <button class="ai-step-trigger" type="button" aria-expanded="false" aria-controls="ai-panel-execute">
                 <span class="ai-step-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m11 9-7 7 7 7M21 9l7 7-7 7M19 5l-6 22"/></svg></span>
                 <span class="ai-step-number">04</span>
-                <span class="ai-step-title" data-i18n="flow4">Executar com Codex</span>
+                <span class="ai-step-title" data-i18n="flow4">Delegar a execução</span>
                 <span class="ai-step-chevron" aria-hidden="true"></span>
               </button>
-              <div class="ai-step-panel" id="ai-panel-execute"><div><p data-i18n="flow4Text">Delego a execução ao Codex para gerar código, testes, documentação ou ajustes necessários.</p></div></div>
+              <div class="ai-step-panel" id="ai-panel-execute"><div><p data-i18n="flow4Text">Uso agentes como o Codex para implementar código, testes e ajustes a partir de especificações claras.</p></div></div>
             </li>
             <li class="ai-step">
               <button class="ai-step-trigger" type="button" aria-expanded="false" aria-controls="ai-panel-review">
                 <span class="ai-step-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11"/><path d="m10 16 4 4 8-9"/></svg></span>
                 <span class="ai-step-number">05</span>
-                <span class="ai-step-title" data-i18n="flow5">Revisar tecnicamente</span>
+                <span class="ai-step-title" data-i18n="flow5">Revisar como engenheiro</span>
                 <span class="ai-step-chevron" aria-hidden="true"></span>
               </button>
-              <div class="ai-step-panel" id="ai-panel-review"><div><p data-i18n="flow5Text">Avalio criticamente o resultado, valido as decisões técnicas e garanto qualidade antes de seguir em frente.</p></div></div>
+              <div class="ai-step-panel" id="ai-panel-review"><div><p data-i18n="flow5Text">Valido arquitetura, comportamento, segurança e qualidade antes de incorporar qualquer resultado.</p></div></div>
             </li>
           </ol>
         </div>
@@ -1931,6 +1961,10 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
                 <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 19 3.7 5 5 0 0 0 18.9 0S17.7-.4 15 1.5a13.4 13.4 0 0 0-7 0C5.3-.4 4.1 0 4.1 0A5 5 0 0 0 4 3.7a5.4 5.4 0 0 0-1.5 3.8c0 5.4 3.3 6.6 6.5 7A4.8 4.8 0 0 0 8 18v4M8 19c-3 .9-5-1.5-5-1.5"/></svg>
                 <span>GitHub</span>
               </a>
+              <a class="contact-link" href="#" data-cv-download download="lucas-de-castro-patrao-cv.html">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14"/></svg>
+                <span data-i18n="cvDownload">Baixar CV</span>
+              </a>
             </nav>
             <footer class="contact-footnote">
               <span aria-hidden="true">↗</span>
@@ -1968,11 +2002,11 @@ const translations = {
     mobileRole: "Suporte → Sistemas", mobileText: "Entrei pelo suporte técnico, aprendi a ouvir o usuário e passei a resolver problemas também com código, SQL Server e automações no Fluig.",
     stackKicker: "TECNOLOGIAS", stackTitle: "Laravel é minha especialidade. As demais ferramentas entram de acordo com o problema.", stackPrimary: "TECNOLOGIAS PRINCIPAIS",
     laravelText: "Minha principal experiência profissional: regras de negócio, APIs, integrações, evolução e manutenção de sistemas.", frontendTitle: "Interfaces web", dataTitle: "Bancos de dados", backendTitle: "Serviços & entrega",
-    aiKicker: "USO CONSCIENTE", aiTitle: "Uso IA para pensar melhor, sem deixar que ela pense por mim.", aiText: "Uso o Codex para fornecer contexto, especificar o problema, delegar tarefas operacionais e manter comigo as decisões de engenharia e a revisão técnica.",
-    flow1: "Entender o problema", flow1Text: "Analiso o contexto, objetivos e restrições para compreender o que realmente precisa ser resolvido.", flow2: "Construir contexto", flow2Text: "Reúno informações relevantes, referências e decisões anteriores para criar base sólida para a solução.", flow3: "Especificar a tarefa", flow3Text: "Defino claramente o que precisa ser feito, critérios de aceite e formato esperado da entrega.", flow4: "Executar com Codex", flow4Text: "Delego a execução ao Codex para gerar código, testes, documentação ou ajustes necessários.", flow5: "Revisar tecnicamente", flow5Text: "Avalio criticamente o resultado, valido as decisões técnicas e garanto qualidade antes de seguir em frente.",
+    aiKicker: "USO CONSCIENTE DE LLMs", aiTitle: "Uso LLMs para ampliar meu raciocínio, sem terceirizar decisões de engenharia.", aiText: "Uso LLMs como ferramenta de apoio: forneço contexto, delimito o problema e delego tarefas bem definidas. Arquitetura, decisões técnicas e validação continuam comigo.",
+    flow1: "Entender o problema", flow1Text: "Mapeio contexto, objetivo, restrições e impacto antes de pensar na implementação.", flow2: "Construir contexto", flow2Text: "Reúno código, regras de negócio, referências e decisões existentes para reduzir suposições.", flow3: "Especificar a tarefa", flow3Text: "Defino escopo, critérios de aceite, limites e resultado esperado antes de delegar.", flow4: "Delegar a execução", flow4Text: "Uso agentes como o Codex para implementar código, testes e ajustes a partir de especificações claras.", flow5: "Revisar como engenheiro", flow5Text: "Valido arquitetura, comportamento, segurança e qualidade antes de incorporar qualquer resultado.",
     projectsKicker: "PROJETOS SELECIONADOS", nexaDescription: "Sistema para organizar chamados de suporte e reunir o atendimento em um fluxo fácil de acompanhar.",
     stockDescription: "Aplicação para manter cadastros de produtos confiáveis com validações, logs, documentação e testes.", wineDescription: "Landing page para um clube de vinhos com atenção à interface, hierarquia visual e responsividade.", qrDescription: "Ferramenta direta para transformar conteúdo em um QR Code pronto para uso.",
-    contactKicker: "CONTATO", contactTitle: "Fale comigo", contactTitleLine1: "Fale", contactTitleLine2: "comigo", contactCopy: "Tem um problema para resolver ou um projeto para construir? Vamos conversar.", previousSection: "Seção anterior", nextSection: "Próxima seção"
+    contactKicker: "CONTATO", contactTitle: "Fale comigo", contactTitleLine1: "Fale", contactTitleLine2: "comigo", contactCopy: "Tem um problema para resolver ou um projeto para construir? Vamos conversar.", cvDownload: "Baixar CV", previousSection: "Seção anterior", nextSection: "Próxima seção"
   },
   en: {
     navStory: "Journey", navStack: "Stack", navAI: "AI", navProjects: "Projects", navContact: "Contact",
@@ -1985,11 +2019,11 @@ const translations = {
     mobileRole: "Support → Systems", mobileText: "I started in technical support, learned to listen to users and gradually solved problems with code, SQL Server and Fluig automations.",
     stackKicker: "TECHNOLOGIES", stackTitle: "Laravel is my specialty. The other tools come in according to the problem.", stackPrimary: "CORE TECHNOLOGIES",
     laravelText: "My main professional experience: business rules, APIs, integrations, system evolution and maintenance.", frontendTitle: "Web interfaces", dataTitle: "Databases", backendTitle: "Services & delivery",
-    aiKicker: "CONSCIOUS USE", aiTitle: "I use AI to think better without letting it think for me.", aiText: "I use Codex to provide context, specify the problem, delegate operational tasks, while engineering decisions and technical review stay with me.",
-    flow1: "Understand the problem", flow1Text: "I analyze context, goals and constraints to understand what really needs to be solved.", flow2: "Build context", flow2Text: "I gather relevant information, references and previous decisions to create a solid foundation for the solution.", flow3: "Specify the task", flow3Text: "I clearly define what needs to be done, acceptance criteria and the expected delivery format.", flow4: "Execute with Codex", flow4Text: "I delegate execution to Codex to generate code, tests, documentation or necessary adjustments.", flow5: "Review technically", flow5Text: "I critically evaluate the result, validate technical decisions and ensure quality before moving forward.",
+    aiKicker: "CONSCIOUS USE OF LLMs", aiTitle: "I use LLMs to expand my reasoning without outsourcing engineering decisions.", aiText: "I use LLMs as supporting tools: I provide context, define the problem and delegate well-scoped tasks. Architecture, technical decisions and validation remain with me.",
+    flow1: "Understand the problem", flow1Text: "I map the context, objective, constraints and impact before considering implementation.", flow2: "Build context", flow2Text: "I gather code, business rules, references and existing decisions to reduce assumptions.", flow3: "Specify the task", flow3Text: "I define scope, acceptance criteria, boundaries and the expected outcome before delegating.", flow4: "Delegate execution", flow4Text: "I use agents such as Codex to implement code, tests and adjustments from clear specifications.", flow5: "Review as an engineer", flow5Text: "I validate architecture, behavior, security and quality before incorporating any result.",
     projectsKicker: "SELECTED PROJECTS", nexaDescription: "A system that organizes support tickets and brings service into one easy-to-follow workflow.",
     stockDescription: "An application that keeps product records reliable through validation, logs, documentation and tests.", wineDescription: "A wine club landing page focused on interface, visual hierarchy and responsiveness.", qrDescription: "A direct tool that turns content into a ready-to-use QR Code.",
-    contactKicker: "CONTACT", contactTitle: "Talk to me", contactTitleLine1: "Talk", contactTitleLine2: "to me", contactCopy: "Have a problem to solve or a project to build? Let's talk.", previousSection: "Previous section", nextSection: "Next section"
+    contactKicker: "CONTACT", contactTitle: "Talk to me", contactTitleLine1: "Talk", contactTitleLine2: "to me", contactCopy: "Have a problem to solve or a project to build? Let's talk.", cvDownload: "Download CV", previousSection: "Previous section", nextSection: "Next section"
   }
 };
 
@@ -2005,10 +2039,12 @@ const pageButtons = [...document.querySelectorAll(".page-nav button")];
 const stackAccordionButtons = [...document.querySelectorAll(".stack-row-trigger")];
 const aiAccordionButtons = [...document.querySelectorAll(".ai-step-trigger")];
 const projectAccordionButtons = [...document.querySelectorAll(".project-card-trigger")];
+const cvDownloadLinks = [...document.querySelectorAll("[data-cv-download]")];
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileQuery = window.matchMedia("(max-width: 960px)");
 
 let language = localStorage.getItem("portfolio-language") || "pt";
+let cvObjectUrl = "";
 const WHEEL_PHASE = Object.freeze({
   IDLE: "IDLE",
   TRACKING: "TRACKING_GESTURE",
@@ -2026,6 +2062,8 @@ const navigation = {
   resizeFrame: 0,
   historyFrame: 0,
   programmatic: false,
+  reconfiguring: false,
+  pendingIndex: null,
   initialized: false,
   modeController: null,
   viewportWidth: window.innerWidth,
@@ -2041,6 +2079,24 @@ const navigation = {
   mobileQuietTimer: 0,
   mobileClampActive: false
 };
+
+function prepareCvDownload() {
+  const cvDocument = `<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CV — Lucas de Castro Patrão</title><style>
+body{max-width:820px;margin:0 auto;padding:48px 34px;color:#171717;background:#fff;font:15px/1.55 Arial,sans-serif}h1{margin:0;font-size:34px;line-height:1.05}h2{margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid #ffd600;font-size:18px}h3{margin:20px 0 2px;font-size:16px}p{margin:4px 0}.role{margin-top:8px;color:#555;font-size:18px}.links{margin-top:14px}.links a{color:#171717}.period{color:#6b6b6b;font-weight:700}.skills{display:flex;flex-wrap:wrap;gap:7px}.skills span{padding:5px 9px;background:#f1f1f1;border-radius:5px}@media print{body{padding:0}.links a{text-decoration:none}}
+</style></head><body>
+<header><h1>Lucas de Castro Patrão</h1><p class="role">Desenvolvedor Full Stack</p><p>Criativo, comunicativo, técnico e disposto.</p><p class="links"><a href="mailto:lucasdecastropatrao@gmail.com">lucasdecastropatrao@gmail.com</a> · <a href="https://github.com/lucaspatraodev">github.com/lucaspatraodev</a> · <a href="https://linkedin.com/in/lucas-patrao/">linkedin.com/in/lucas-patrao</a></p></header>
+<section><h2>Perfil</h2><p>Desenvolvedor Full Stack com experiência em sistemas web, regras de negócio, integrações, APIs e manutenção de aplicações em produção. Uso LLMs como apoio para ampliar o raciocínio e acelerar tarefas bem especificadas, mantendo comigo arquitetura, decisões técnicas e validação.</p></section>
+<section><h2>Experiência</h2><h3>Amar Assistência em Seguros</h3><p class="period">Full Stack Jr · 2026 — Atual</p><p>Manutenção e evolução do sistema que sustenta a operação, trabalhando com Laravel, Vue.js e MySQL, integrações e investigação de problemas reais de produção.</p><h3>Ótica Center Franquias</h3><p class="period">Full Stack Jr 3 · 2025 — 2026</p><p>Evolução do Portal Franqueado, novas funcionalidades e manutenção de produção com Laravel, React, Inertia e TypeScript.</p><h3>One Laudos Diagnósticos Médicos</h3><p class="period">Full Stack Jr · 2025</p><p>Aplicações web, integração de sistemas por APIs e webhooks e automação de processos internos.</p><h3>Escola Móbile</h3><p class="period">Suporte → Sistemas · 2020 — 2024</p><p>Suporte técnico, resolução de problemas com código, SQL Server e automações no Fluig.</p></section>
+<section><h2>Competências</h2><div class="skills"><span>Laravel</span><span>PHP</span><span>Vue.js</span><span>React</span><span>Next.js</span><span>TypeScript</span><span>JavaScript</span><span>MySQL</span><span>PostgreSQL</span><span>SQL Server</span><span>MongoDB</span><span>REST APIs</span><span>Webhooks</span><span>Docker</span><span>Git</span><span>LLMs e agentes</span></div></section>
+</body></html>`;
+  cvObjectUrl = URL.createObjectURL(new Blob([cvDocument], { type: "text/html;charset=utf-8" }));
+  cvDownloadLinks.forEach((link) => {
+    link.href = cvObjectUrl;
+    link.setAttribute("download", "lucas-de-castro-patrao-cv.html");
+  });
+}
 
 function applyLanguage() {
   const dictionary = translations[language];
@@ -2314,7 +2370,7 @@ function dominantMobileSection() {
 
 function syncMobileActiveSection() {
   navigation.renderFrame = 0;
-  if (navigation.mode !== "mobile" || navigation.programmatic) return;
+  if (navigation.mode !== "mobile" || navigation.programmatic || navigation.reconfiguring) return;
   setActiveSection(dominantMobileSection(), { historyMode: "replace" });
 }
 
@@ -2394,7 +2450,7 @@ function clampMobileGesture() {
 }
 
 function handleMobileScroll() {
-  if (navigation.mode !== "mobile") return;
+  if (navigation.mode !== "mobile" || navigation.reconfiguring) return;
   clampMobileGesture();
   requestMobileSync();
   const gesture = navigation.mobileGesture;
@@ -2426,100 +2482,49 @@ function openMenu() {
   document.body.classList.add("menu-open");
 }
 
-function syncStackAccordion() {
-  stackAccordionButtons.forEach((button, index) => {
-    const panel = document.getElementById(button.getAttribute("aria-controls"));
+function setAccordionState(button, expanded) {
+  const panel = document.getElementById(button.getAttribute("aria-controls"));
+  button.setAttribute("aria-expanded", expanded ? "true" : "false");
+  if (!panel) return;
+  panel.setAttribute("aria-hidden", expanded ? "false" : "true");
+  panel.inert = !expanded;
+}
+
+function syncAccordionGroup(buttons) {
+  buttons.forEach((button, index) => {
     if (!mobileQuery.matches) {
       delete button.dataset.mobileReady;
-      button.setAttribute("aria-expanded", "true");
       button.setAttribute("tabindex", "-1");
-      panel?.setAttribute("aria-hidden", "false");
+      setAccordionState(button, true);
       return;
     }
     button.removeAttribute("tabindex");
     if (!button.dataset.mobileReady) {
-      button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
+      setAccordionState(button, index === 0);
       button.dataset.mobileReady = "true";
-    }
-    panel?.setAttribute("aria-hidden", button.getAttribute("aria-expanded") === "false" ? "true" : "false");
-  });
-}
-
-stackAccordionButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    if (!mobileQuery.matches) return;
-    const willOpen = button.getAttribute("aria-expanded") !== "true";
-    stackAccordionButtons.forEach((item) => {
-      const panel = document.getElementById(item.getAttribute("aria-controls"));
-      const isCurrent = item === button && willOpen;
-      item.setAttribute("aria-expanded", isCurrent ? "true" : "false");
-      panel?.setAttribute("aria-hidden", isCurrent ? "false" : "true");
-    });
-  });
-});
-
-function syncAiAccordion() {
-  aiAccordionButtons.forEach((button, index) => {
-    const panel = document.getElementById(button.getAttribute("aria-controls"));
-    if (!mobileQuery.matches) {
-      delete button.dataset.mobileReady;
-      button.setAttribute("aria-expanded", "true");
-      button.setAttribute("tabindex", "-1");
-      panel?.setAttribute("aria-hidden", "false");
       return;
     }
-    button.removeAttribute("tabindex");
-    if (!button.dataset.mobileReady) {
-      button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
-      button.dataset.mobileReady = "true";
-    }
-    panel?.setAttribute("aria-hidden", button.getAttribute("aria-expanded") === "false" ? "true" : "false");
+    setAccordionState(button, button.getAttribute("aria-expanded") === "true");
   });
 }
 
-aiAccordionButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    if (!mobileQuery.matches) return;
-    const willOpen = button.getAttribute("aria-expanded") !== "true";
-    aiAccordionButtons.forEach((item) => {
-      const panel = document.getElementById(item.getAttribute("aria-controls"));
-      const isCurrent = item === button && willOpen;
-      item.setAttribute("aria-expanded", isCurrent ? "true" : "false");
-      panel?.setAttribute("aria-hidden", isCurrent ? "false" : "true");
-    });
-  });
-});
-
-function syncProjectAccordion() {
-  projectAccordionButtons.forEach((button, index) => {
-    const panel = document.getElementById(button.getAttribute("aria-controls"));
-    if (!mobileQuery.matches) {
-      delete button.dataset.mobileReady;
-      button.setAttribute("aria-expanded", "true");
-      button.setAttribute("tabindex", "-1");
-      panel?.setAttribute("aria-hidden", "false");
-      return;
-    }
-    button.removeAttribute("tabindex");
-    if (!button.dataset.mobileReady) {
-      button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
-      button.dataset.mobileReady = "true";
-    }
-    panel?.setAttribute("aria-hidden", button.getAttribute("aria-expanded") === "false" ? "true" : "false");
-  });
+function toggleMobileAccordion(button) {
+  if (!mobileQuery.matches) return;
+  clearMobileGesture();
+  const willOpen = button.getAttribute("aria-expanded") !== "true";
+  setAccordionState(button, willOpen);
+  const ownerScene = button.closest(".scene");
+  const ownerIndex = scenes.indexOf(ownerScene);
+  if (ownerIndex >= 0) setActiveSection(ownerIndex, { historyMode: "none" });
+  requestAnimationFrame(requestMobileSync);
 }
 
-projectAccordionButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    if (!mobileQuery.matches) return;
-    const willOpen = button.getAttribute("aria-expanded") !== "true";
-    projectAccordionButtons.forEach((item) => {
-      const panel = document.getElementById(item.getAttribute("aria-controls"));
-      const isCurrent = item === button && willOpen;
-      item.setAttribute("aria-expanded", isCurrent ? "true" : "false");
-      panel?.setAttribute("aria-hidden", isCurrent ? "false" : "true");
-    });
-  });
+function syncStackAccordion() { syncAccordionGroup(stackAccordionButtons); }
+function syncAiAccordion() { syncAccordionGroup(aiAccordionButtons); }
+function syncProjectAccordion() { syncAccordionGroup(projectAccordionButtons); }
+
+[...stackAccordionButtons, ...aiAccordionButtons, ...projectAccordionButtons].forEach((button) => {
+  button.addEventListener("click", () => toggleMobileAccordion(button));
 });
 
 languageToggle.addEventListener("click", () => {
@@ -2531,7 +2536,7 @@ languageToggle.addEventListener("click", () => {
 menuToggle.addEventListener("click", () => mobileMenu.classList.contains("is-open") ? closeMenu() : openMenu());
 mobileMenu.addEventListener("click", (event) => { if (event.target === mobileMenu) closeMenu(); });
 
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
+document.querySelectorAll('a[href^="#"]:not([data-cv-download])').forEach((link) => {
   link.addEventListener("click", (event) => {
     const href = link.getAttribute("href");
     if (!href || href === "#") return;
@@ -2549,6 +2554,7 @@ function nearestDesktopSection() {
 }
 
 function handleDesktopScroll() {
+  if (navigation.reconfiguring) return;
   requestDesktopRender();
   if (!navigation.programmatic && navigation.wheel.phase === WHEEL_PHASE.IDLE) {
     setActiveSection(nearestDesktopSection(), { historyMode: "replace" });
@@ -2556,7 +2562,7 @@ function handleDesktopScroll() {
 }
 
 function handleDesktopScrollEnd() {
-  if (navigation.mode !== "desktop" || navigation.programmatic || navigation.wheel.phase !== WHEEL_PHASE.IDLE) return;
+  if (navigation.mode !== "desktop" || navigation.programmatic || navigation.reconfiguring || navigation.wheel.phase !== WHEEL_PHASE.IDLE) return;
   const index = nearestDesktopSection();
   const target = sceneScrollTop(index);
   if (Math.abs(window.scrollY - target) <= 1) return;
@@ -2597,6 +2603,7 @@ function handleKeyboardNavigation(event) {
 
 function reconfigureNavigation() {
   navigation.resizeFrame = 0;
+  const preservedIndex = navigation.pendingIndex ?? navigation.activeIndex;
   const previousMode = navigation.mode;
   const nextMode = mobileQuery.matches ? "mobile" : "desktop";
   const modeChanged = previousMode !== nextMode;
@@ -2610,17 +2617,21 @@ function reconfigureNavigation() {
   syncAiAccordion();
   syncProjectAccordion();
   if (modeChanged || !navigation.modeController) installModeListeners();
-  setActiveSection(navigation.activeIndex, { historyMode: "none" });
-  window.scrollTo(0, sectionScrollTop(navigation.activeIndex));
+  setActiveSection(preservedIndex, { historyMode: "none" });
+  window.scrollTo(0, sectionScrollTop(preservedIndex));
   if (navigation.mode === "desktop") renderDesktopPosition();
-  else requestMobileSync();
   navigation.viewportWidth = window.innerWidth;
+  navigation.pendingIndex = null;
+  navigation.reconfiguring = false;
+  if (navigation.mode === "mobile") requestMobileSync();
 }
 
 function queueViewportReconfiguration(force = false) {
   const widthChanged = Math.abs(window.innerWidth - navigation.viewportWidth) > 1;
   const modeChanged = navigation.mode !== (mobileQuery.matches ? "mobile" : "desktop");
   if (!force && navigation.mode === "mobile" && !widthChanged && !modeChanged) return;
+  if (!navigation.reconfiguring) navigation.pendingIndex = navigation.activeIndex;
+  navigation.reconfiguring = true;
   if (navigation.resizeFrame) cancelAnimationFrame(navigation.resizeFrame);
   navigation.resizeFrame = requestAnimationFrame(reconfigureNavigation);
 }
@@ -2654,8 +2665,10 @@ window.addEventListener("orientationchange", () => queueViewportReconfiguration(
 window.addEventListener("popstate", queueHistoryNavigation);
 window.addEventListener("hashchange", queueHistoryNavigation);
 window.addEventListener("load", () => queueViewportReconfiguration(true), { once: true });
+window.addEventListener("pagehide", () => { if (cvObjectUrl) URL.revokeObjectURL(cvObjectUrl); }, { once: true });
 mobileQuery.addEventListener("change", () => queueViewportReconfiguration(true));
 
+prepareCvDownload();
 applyLanguage();
 initializeNavigation();
 
