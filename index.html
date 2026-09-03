@@ -33,7 +33,7 @@
 @media(max-width:960px){
  :root{--nav-h:76px;--page-pad:clamp(18px,5vw,34px)}html{scroll-snap-type:y proximity;scroll-padding-block-start:0}.site-nav{height:var(--nav-h);padding-top:14px;grid-template-columns:1fr auto;align-items:start}.brand-mark{width:52px;height:52px;font-size:17px}.desktop-nav,.contact-pill{display:none}.nav-actions{gap:8px}.language-toggle{width:46px;height:46px}.menu-toggle{position:relative;width:52px;height:52px;padding:0;border-radius:50%;display:block;cursor:pointer}.menu-toggle span{position:absolute;left:14px;width:22px;height:1.5px;background:#fff;transition:.28s}.menu-toggle span:first-child{top:21px}.menu-toggle span:last-child{top:29px}.menu-toggle.is-open span:first-child{top:25px;transform:rotate(45deg)}.menu-toggle.is-open span:last-child{top:25px;transform:rotate(-45deg)}
  .mobile-menu{display:block;position:fixed;z-index:90;inset:0;opacity:0;visibility:hidden;pointer-events:none;background:rgba(0,0,0,.46);backdrop-filter:blur(9px) grayscale(.7);transition:opacity .28s,visibility .28s}.mobile-menu.is-open{opacity:1;visibility:visible;pointer-events:auto}.mobile-menu-card{position:absolute;top:calc(var(--nav-h) + 8px);left:var(--page-pad);right:var(--page-pad);padding:9px 18px;border:1px solid rgba(255,255,255,.16);border-radius:19px;background:rgba(8,8,8,.93);box-shadow:0 22px 60px rgba(0,0,0,.45);display:flex;flex-direction:column;transform:translateY(-12px) scale(.98);transform-origin:top;transition:transform .3s}.mobile-menu.is-open .mobile-menu-card{transform:none}.mobile-menu-card a{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.82);font-size:14px;font-weight:700}.mobile-menu-card a:last-child{border:0}.mobile-menu-card a.is-active{color:var(--yellow)}
- .motion-stage{height:auto!important}.kinetic-track{position:relative;top:auto;width:100%;height:auto;display:block;transform:none!important}.scene{width:100%;height:auto;min-height:100svh;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always}.scene-shell{width:calc(100% - (var(--page-pad) * 2));height:auto;min-height:100svh;padding:calc(var(--nav-h) + 48px) 0 70px}.page-nav{display:none}
+ .motion-stage{height:auto!important}.kinetic-track{position:relative;top:auto;width:100%;height:auto;display:block;transform:none!important}.scene{width:100%;height:auto;min-height:100svh;overflow-x:clip;overflow-y:visible;scroll-snap-align:start;scroll-snap-stop:normal}.scene-shell{width:calc(100% - (var(--page-pad) * 2));height:auto;min-height:100svh;padding:calc(var(--nav-h) + 48px) 0 70px}.page-nav{display:none}
  .hero-scene{height:100svh;min-height:650px}.hero-shade{background:linear-gradient(0deg,rgba(0,0,0,1) 0,rgba(0,0,0,.27) 42%,transparent 65%),linear-gradient(90deg,rgba(0,0,0,.23),transparent 50%,rgba(0,0,0,.2))}.hero-identity{top:auto;bottom:25.5%;width:calc(100% - 40px)}.hero-name{font-size:16px}.hero-summary{max-width:330px;font-size:14px}.hero-scene h1{bottom:11.5%;font-size:clamp(55px,16.7vw,112px);line-height:.82}.scroll-cue{left:auto;right:var(--page-pad);top:auto;bottom:20px;width:75px;height:75px;font-size:9px}.scroll-cue strong{font-size:18px}.hero-socials{left:var(--page-pad);bottom:20px;gap:14px}.hero-socials span{width:40px;height:40px;font-size:10px}.hero-socials a{font-size:9px}
  .story-layout{display:grid;grid-template-columns:1fr;gap:48px;align-items:start}.story-scene .scene-heading h2{font-size:clamp(42px,10vw,74px)}.timeline-item{grid-template-columns:88px 1fr;gap:14px 20px}.timeline-item p{grid-column:2}
 }
@@ -586,7 +586,7 @@
 }
 
 @media(max-width:960px){
-  .stack-scene{overflow:hidden}
+  .stack-scene{overflow-x:clip;overflow-y:visible}
   .stack-scene::after{right:-55vw;top:10%;width:100vw;opacity:.55}
   .stack-layout{
     display:block;
@@ -838,7 +838,7 @@ html[data-active-scene="ai"] .brand-mark:hover{background:#090909;color:var(--ye
 @media(max-width:960px){
   html[data-active-scene="ai"] .menu-toggle{border-color:rgba(9,9,9,.55);background:rgba(255,214,0,.52)}
   html[data-active-scene="ai"] .menu-toggle span{background:#090909}
-  .ai-scene{overflow:hidden}
+  .ai-scene{overflow-x:clip;overflow-y:visible}
   .ai-layout{
     display:block;
     width:calc(100% - (var(--page-pad) * 2));
@@ -1139,7 +1139,7 @@ html[data-active-scene="ai"] .brand-mark:hover{background:#090909;color:var(--ye
 }
 
 @media(max-width:960px){
-  .projects-scene{overflow:hidden}
+  .projects-scene{overflow-x:clip;overflow-y:visible}
   .projects-scene::after{left:-112px;bottom:-145px;width:260px;height:260px}
   .projects-layout{
     display:block;
@@ -1485,7 +1485,8 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
   html[data-active-scene="ai"] .brand-mark:active{color:#090909!important}
   html[data-active-scene="contact"] .brand-mark:hover,
   html[data-active-scene="contact"] .brand-mark:active{color:#0a0a09!important}
-  .scene{width:100%;max-width:100%;overflow-x:clip}
+  .scene{width:100%;max-width:100%;height:auto;min-height:100svh;overflow-x:clip;overflow-y:visible;scroll-snap-align:start;scroll-snap-stop:normal}
+  .hero-scene{height:100svh;min-height:100svh;overflow:hidden}
   .scene-shell,
   .story-layout,
   .stack-layout,
@@ -1498,7 +1499,6 @@ html[data-active-scene="contact"] .page-nav i{background:#0a0a09}
     touch-action:manipulation;
     -webkit-tap-highlight-color:transparent;
   }
-  .hero-scene{height:100svh;min-height:100svh}
   .hero-copy-stack{
     left:0;
     top:min(60%,calc(100% - 215px));
@@ -2052,7 +2052,6 @@ const WHEEL_PHASE = Object.freeze({
   WAITING: "WAITING_FOR_MOMENTUM_END"
 });
 const WHEEL_QUIET_MS = 180;
-const MOBILE_QUIET_MS = 160;
 const navigation = {
   mode: mobileQuery.matches ? "mobile" : "desktop",
   activeIndex: 0,
@@ -2066,6 +2065,7 @@ const navigation = {
   pendingIndex: null,
   initialized: false,
   modeController: null,
+  mobileSectionObserver: null,
   viewportWidth: window.innerWidth,
   wheel: {
     phase: WHEEL_PHASE.IDLE,
@@ -2074,10 +2074,7 @@ const navigation = {
     lastEventAt: 0,
     quietTimer: 0,
     navigationDone: true
-  },
-  mobileGesture: null,
-  mobileQuietTimer: 0,
-  mobileClampActive: false
+  }
 };
 
 function prepareCvDownload() {
@@ -2267,14 +2264,8 @@ function animateWindowScroll(targetTop, generation, duration) {
 
 function defaultHistoryMode(source) {
   if (["wheel", "menu", "link", "button", "keyboard"].includes(source)) return "push";
-  if (["mobile-scroll", "scrollbar"].includes(source)) return "replace";
+  if (["mobile-observer", "scrollbar"].includes(source)) return "replace";
   return "none";
-}
-
-function clearMobileGesture() {
-  clearTimeout(navigation.mobileQuietTimer);
-  navigation.mobileGesture = null;
-  navigation.mobileClampActive = false;
 }
 
 function navigateToSection(index, source = "api", options = {}) {
@@ -2282,8 +2273,14 @@ function navigateToSection(index, source = "api", options = {}) {
   const historyMode = options.historyMode ?? defaultHistoryMode(source);
   const behavior = reduceMotion.matches ? "auto" : (options.behavior || "smooth");
   closeMenu();
-  clearMobileGesture();
   cancelNavigationAnimation();
+
+  if (navigation.mode === "mobile") {
+    setActiveSection(safeIndex, { historyMode });
+    scenes[safeIndex]?.scrollIntoView({ behavior, block: "start" });
+    return;
+  }
+
   const generation = navigation.generation;
   navigation.programmatic = true;
   prepareWheelGuard(source);
@@ -2358,110 +2355,53 @@ function handleDesktopWheel(event) {
   }
 }
 
-function sceneIndexAtDocumentPosition(position = window.scrollY + 1) {
-  const anchor = Math.max(0, position);
-  const index = scenes.findIndex((scene, sceneIndex) => anchor < scene.offsetTop + scene.offsetHeight || sceneIndex === scenes.length - 1);
-  return Math.max(0, index);
+function disconnectMobileSectionObserver() {
+  navigation.mobileSectionObserver?.disconnect();
+  navigation.mobileSectionObserver = null;
 }
 
-function dominantMobileSection() {
-  return sceneIndexAtDocumentPosition(window.scrollY + Math.min(window.innerHeight * .38, 320));
-}
-
-function syncMobileActiveSection() {
-  navigation.renderFrame = 0;
-  if (navigation.mode !== "mobile" || navigation.programmatic || navigation.reconfiguring) return;
-  setActiveSection(dominantMobileSection(), { historyMode: "replace" });
-}
-
-function requestMobileSync() {
-  if (navigation.renderFrame || navigation.mode !== "mobile") return;
-  navigation.renderFrame = requestAnimationFrame(syncMobileActiveSection);
-}
-
-function interruptProgrammaticNavigation() {
-  if (!navigation.programmatic) return;
-  cancelNavigationAnimation();
-  if (navigation.mode === "mobile") setActiveSection(dominantMobileSection(), { historyMode: "replace" });
-}
-
-function beginMobileGesture(input, touchY = null) {
+function installMobileSectionObserver() {
+  disconnectMobileSectionObserver();
   if (navigation.mode !== "mobile") return;
-  interruptProgrammaticNavigation();
-  clearMobileGesture();
-  const originIndex = sceneIndexAtDocumentPosition();
-  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-  navigation.mobileGesture = {
-    input,
-    originIndex,
-    startTouchY: touchY,
-    moved: input === "wheel",
-    inputActive: input === "touch",
-    minScroll: originIndex > 0 ? scenes[originIndex - 1].offsetTop : 0,
-    maxScroll: originIndex < scenes.length - 1 ? scenes[originIndex + 1].offsetTop : maxScroll
-  };
-}
 
-function scheduleMobileGestureEnd() {
-  clearTimeout(navigation.mobileQuietTimer);
-  navigation.mobileQuietTimer = setTimeout(() => {
-    const gesture = navigation.mobileGesture;
-    if (gesture && !gesture.inputActive) clearMobileGesture();
-  }, MOBILE_QUIET_MS);
-}
+  const intersectingScenes = new Set();
+  navigation.mobileSectionObserver = new IntersectionObserver((entries) => {
+    if (navigation.mode !== "mobile" || navigation.reconfiguring) return;
 
-function handleMobileTouchStart(event) {
-  const touch = event.touches[0];
-  if (touch) beginMobileGesture("touch", touch.clientY);
-}
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) intersectingScenes.add(entry.target);
+      else intersectingScenes.delete(entry.target);
+    });
 
-function handleMobileTouchMove(event) {
-  const gesture = navigation.mobileGesture;
-  const touch = event.touches[0];
-  if (!gesture || gesture.input !== "touch" || !touch) return;
-  if (Math.abs(touch.clientY - gesture.startTouchY) >= 10) gesture.moved = true;
-}
+    if (!intersectingScenes.size) return;
+    const focusLine = window.innerHeight * .39;
+    let activeScene = scenes[navigation.activeIndex];
+    let shortestDistance = Infinity;
 
-function handleMobileTouchEnd() {
-  const gesture = navigation.mobileGesture;
-  if (!gesture || gesture.input !== "touch") return;
-  gesture.inputActive = false;
-  if (!gesture.moved) clearMobileGesture();
-  else scheduleMobileGestureEnd();
-}
+    intersectingScenes.forEach((scene) => {
+      const rect = scene.getBoundingClientRect();
+      const distance = rect.top > focusLine
+        ? rect.top - focusLine
+        : rect.bottom < focusLine
+          ? focusLine - rect.bottom
+          : 0;
+      if (distance < shortestDistance) {
+        shortestDistance = distance;
+        activeScene = scene;
+      }
+    });
 
-function handleMobileWheel() {
-  if (!navigation.mobileGesture || navigation.mobileGesture.input !== "wheel") beginMobileGesture("wheel");
-  scheduleMobileGestureEnd();
-}
+    const activeIndex = scenes.indexOf(activeScene);
+    if (activeIndex >= 0 && activeIndex !== navigation.activeIndex) {
+      setActiveSection(activeIndex, { historyMode: "replace" });
+    }
+  }, {
+    root: null,
+    rootMargin: "-34% 0px -56% 0px",
+    threshold: 0
+  });
 
-function clampMobileGesture() {
-  const gesture = navigation.mobileGesture;
-  if (!gesture || navigation.mobileClampActive || navigation.programmatic) return false;
-  const y = window.scrollY;
-  let target = null;
-  if (y > gesture.maxScroll + 1) target = gesture.maxScroll;
-  if (y < gesture.minScroll - 1) target = gesture.minScroll;
-  if (target === null) return false;
-  navigation.mobileClampActive = true;
-  window.scrollTo(0, target);
-  requestAnimationFrame(() => { navigation.mobileClampActive = false; });
-  return true;
-}
-
-function handleMobileScroll() {
-  if (navigation.mode !== "mobile" || navigation.reconfiguring) return;
-  clampMobileGesture();
-  requestMobileSync();
-  const gesture = navigation.mobileGesture;
-  if (gesture && !gesture.inputActive) scheduleMobileGestureEnd();
-}
-
-function handleMobileScrollEnd() {
-  if (navigation.mode !== "mobile") return;
-  requestMobileSync();
-  const gesture = navigation.mobileGesture;
-  if (gesture && !gesture.inputActive) clearMobileGesture();
+  scenes.forEach((scene) => navigation.mobileSectionObserver.observe(scene));
 }
 
 function closeMenu() {
@@ -2510,13 +2450,11 @@ function syncAccordionGroup(buttons) {
 
 function toggleMobileAccordion(button) {
   if (!mobileQuery.matches) return;
-  clearMobileGesture();
   const willOpen = button.getAttribute("aria-expanded") !== "true";
   setAccordionState(button, willOpen);
   const ownerScene = button.closest(".scene");
   const ownerIndex = scenes.indexOf(ownerScene);
   if (ownerIndex >= 0) setActiveSection(ownerIndex, { historyMode: "none" });
-  requestAnimationFrame(requestMobileSync);
 }
 
 function syncStackAccordion() { syncAccordionGroup(stackAccordionButtons); }
@@ -2571,6 +2509,7 @@ function handleDesktopScrollEnd() {
 
 function installModeListeners() {
   navigation.modeController?.abort();
+  disconnectMobileSectionObserver();
   navigation.modeController = new AbortController();
   const signal = navigation.modeController.signal;
   if (navigation.mode === "desktop") {
@@ -2579,13 +2518,7 @@ function installModeListeners() {
     window.addEventListener("scrollend", handleDesktopScrollEnd, { passive: true, signal });
     return;
   }
-  window.addEventListener("touchstart", handleMobileTouchStart, { passive: true, signal });
-  window.addEventListener("touchmove", handleMobileTouchMove, { passive: true, signal });
-  window.addEventListener("touchend", handleMobileTouchEnd, { passive: true, signal });
-  window.addEventListener("touchcancel", clearMobileGesture, { passive: true, signal });
-  window.addEventListener("wheel", handleMobileWheel, { passive: true, signal });
-  window.addEventListener("scroll", handleMobileScroll, { passive: true, signal });
-  window.addEventListener("scrollend", handleMobileScrollEnd, { passive: true, signal });
+  installMobileSectionObserver();
 }
 
 function handleKeyboardNavigation(event) {
@@ -2609,7 +2542,6 @@ function reconfigureNavigation() {
   const modeChanged = previousMode !== nextMode;
   cancelNavigationAnimation();
   resetWheelGesture();
-  clearMobileGesture();
   navigation.mode = nextMode;
   closeMenu();
   updateStageHeight();
@@ -2618,12 +2550,14 @@ function reconfigureNavigation() {
   syncProjectAccordion();
   if (modeChanged || !navigation.modeController) installModeListeners();
   setActiveSection(preservedIndex, { historyMode: "none" });
-  window.scrollTo(0, sectionScrollTop(preservedIndex));
+  if (navigation.mode === "desktop" || modeChanged) {
+    window.scrollTo(0, sectionScrollTop(preservedIndex));
+  }
   if (navigation.mode === "desktop") renderDesktopPosition();
+  else if (!modeChanged) installMobileSectionObserver();
   navigation.viewportWidth = window.innerWidth;
   navigation.pendingIndex = null;
   navigation.reconfiguring = false;
-  if (navigation.mode === "mobile") requestMobileSync();
 }
 
 function queueViewportReconfiguration(force = false) {
